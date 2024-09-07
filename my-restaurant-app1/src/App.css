@@ -14,7 +14,7 @@ body {
 }
 
 footer {
-  background-color: #1abc9c;
+  background-color: hsl(0, 100%, 60%);
   color: white;
   text-align: center;
   padding: 1rem;

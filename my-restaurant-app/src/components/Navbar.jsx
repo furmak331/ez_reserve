@@ -1,22 +1,20 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <AppBar position="static" style={{ backgroundColor: '#6200ea' }}>
-      <Toolbar>
-        <motion.div whileHover={{ scale: 1.1 }}>
-          <Typography variant="h6" component={Link} to="/" style={{ textDecoration: 'none', color: 'white' }}>
-            Restaurant Reservation
+    <motion.div initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}>
+      <AppBar position="static" color="primary">
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            Restaurant Reserve
           </Typography>
-        </motion.div>
-        <Button component={Link} to="/" color="inherit" style={{ marginLeft: 'auto' }}>
-          Home
-        </Button>
-      </Toolbar>
-    </AppBar>
+          <Button color="inherit" component={Link} to="/">Home</Button>
+          <Button color="inherit" component={Link} to="/restaurants">Restaurants</Button>
+        </Toolbar>
+      </AppBar>
+    </motion.div>
   );
 };
 

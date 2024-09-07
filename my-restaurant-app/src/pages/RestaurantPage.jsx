@@ -1,29 +1,28 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Card, CardContent, Typography } from '@mui/material';
-import TableBooking from '../components/TableBooking';
+import { Typography, Button, Container } from "@mui/material";
+import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 
 const RestaurantPage = () => {
   const { id } = useParams();
-  const [restaurant, setRestaurant] = useState({
-    id,
-    name: 'Sample Restaurant',
-    location: 'Sample Location',
-    tablesAvailable: 5,
-  });
-
+  // Fetch restaurant data based on the `id` parameter
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-      <Card raised style={{ width: '600px', padding: '20px' }}>
-        <CardContent>
-          <Typography variant="h4">{restaurant.name}</Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            Location: {restaurant.location}
-          </Typography>
-          <TableBooking availableTables={restaurant.tablesAvailable} />
-        </CardContent>
-      </Card>
-    </div>
+    <Container>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7 }}
+      >
+        <Typography variant="h4" gutterBottom>
+          Restaurant {id}
+        </Typography>
+        <Typography variant="body1" paragraph>
+          Book your table today at Restaurant {id} and enjoy a delightful dining experience.
+        </Typography>
+        <Button variant="contained" color="primary" size="large">
+          Confirm Reservation
+        </Button>
+      </motion.div>
+    </Container>
   );
 };
 

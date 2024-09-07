@@ -1,21 +1,39 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import RestaurantPage from './pages/RestaurantPage';
-import Navbar from './components/Navbar';
-import { Container } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import HomePage from "./pages/HomePage";
+import RestaurantPage from "./pages/RestaurantPage";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
+const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#1abc9c",
+    },
+    secondary: {
+      main: "#e74c3c",
+    },
+  },
+  typography: {
+    fontFamily: "Roboto, sans-serif",
+  },
+});
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Container>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/restaurant/:id" element={<RestaurantPage />} />
         </Routes>
-      </Container>
-    </Router>
+        <Footer />
+      </Router>
+    </ThemeProvider>
   );
 }
 

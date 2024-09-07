@@ -1,6 +1,6 @@
 # 🍽️ Ez Reserve
 
-![Demo GIF](./assets/demo.gif)
+![Demo GIF](./assets/giphy.webp)
 
 Welcome to the **Ez reserve**! This web app lets you browse through multiple restaurants, check their availability, and book a table—making sure you never have to wait in line for a table again! 🚀
 

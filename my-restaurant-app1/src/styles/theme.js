@@ -5,9 +5,9 @@ export const theme = {
     primary: '#D4AF37', // Rich gold
     secondary: '#8B4513', // Saddle brown
     accent: '#C41E3A', // Cardinal red
-    background: '#F5F5DC', // Beige
-    text: '#2F4F4F', // Dark slate gray
-    textLight: '#708090', // Slate gray
+    background: '#F5F5F5', // Light gray background
+    text: '#333333', // Dark gray text
+    textLight: '#666666', // Medium gray text
     white: '#FFFFFF',
   },
   fonts: {

@@ -5,7 +5,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/f
 import { theme } from '../styles/theme';
 
 const FooterContainer = styled.footer`
-  background-color: ${theme.colors.secondary};
+  background-color: #1A1A1A; // Dark background
   color: ${theme.colors.white};
   padding: 4rem 0 2rem;
 `;
@@ -32,7 +32,7 @@ const FooterTitle = styled.h3`
 `;
 
 const FooterLink = styled(motion.a)`
-  color: ${theme.colors.white};
+  color: #B0B0B0; // Light gray for better readability
   text-decoration: none;
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
@@ -49,7 +49,7 @@ const SocialIcons = styled.div`
 `;
 
 const SocialIcon = styled(motion.a)`
-  color: ${theme.colors.white};
+  color: #B0B0B0; // Light gray for better readability
   font-size: 1.5rem;
   transition: color 0.3s ease;
 
@@ -63,6 +63,7 @@ const Copyright = styled.p`
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #808080; // Medium gray for less emphasis
 `;
 
 function Footer() {

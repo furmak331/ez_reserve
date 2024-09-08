@@ -1,12 +1,56 @@
 /* src/index.css */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #f4f4f4;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap');
+@import './styles/colors.css';
+
+:root {
+  --bg-primary: #F7F7F7;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --accent: #FF6B6B;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  cursor: none;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a, button {
+  cursor: none;
+}
+
+.cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transition: all 0.1s ease;
+  z-index: 9999;
+}
+
+.cursor-dot {
+  width: 4px;
+  height: 4px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transition: all 0.15s ease-out;
+  z-index: 9999;
 }

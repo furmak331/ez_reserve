@@ -1,18 +1,16 @@
-// src/App.jsx
-import React from "react";
-import "./App.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
+import Home from './pages/Home';
+import CustomCursor from './components/CustomCursor';
 
-const App = () => {
+function App() {
   return (
-    <div className="app">
-      <Navbar />
+    <ThemeProvider theme={theme}>
+      <CustomCursor />
       <Home />
-      <Footer />
-    </div>
+    </ThemeProvider>
   );
-};
+}
 
 export default App;

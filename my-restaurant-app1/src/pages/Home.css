@@ -1,42 +1,123 @@
-/* src/pages/Home.css */
+:root {
+  --primary-color: #ff6b6b;
+  --secondary-color: #4ecdc4;
+  --text-color: #333;
+  --background-color: #f7f7f7;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
 .hero {
-    height: 60vh;
-    background: url('/src/assets/restaurant-hero.jpg') no-repeat center center/cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-  }
-  
+  background-image: url('path/to/your/hero-image.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+.hero-content {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+
+.search-bar {
+  display: flex;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-bar input {
+  flex-grow: 1;
+  padding: 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px 0 0 30px;
+  outline: none;
+}
+
+.btn-search {
+  padding: 15px 30px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0 30px 30px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-search:hover {
+  background-color: darken(var(--primary-color), 10%);
+}
+
+.featured-dishes {
+  margin-bottom: 60px;
+}
+
+.featured-dishes h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dish-slider {
+  /* Add styles for the dish slider */
+}
+
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
   .hero h1 {
     font-size: 3rem;
-    margin: 0;
-    animation: fadeIn 1.5s ease-out;
   }
-  
+
   .hero p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input,
+  .btn-search {
+    border-radius: 30px;
+    width: 100%;
+  }
+
+  .btn-search {
     margin-top: 10px;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .restaurant-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 2rem;
-  }
-  
+}

@@ -1,4 +1,5 @@
 # 🍽️ Ez Reserve
+/GOURMET GUIDE
 
 ![Demo GIF](./my-restaurant-app/src/assets/giphy.gif)
 

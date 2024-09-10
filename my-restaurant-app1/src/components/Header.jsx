@@ -10,7 +10,7 @@ const HeaderContainer = styled(motion.header)`
   right: 0;
   height: 80px;
   background-color: ${props => props.isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent'};
-  backdrop-filter: ${props => props.isScrolled ? 'blur(10px)' : 'none'};
+  backdrop-filter: ${props => props.isScrolled ? 'blur(5px)' : 'none'};
   transition: all 0.3s ease;
   z-index: 1000;
   box-shadow: ${props => props.isScrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none'};

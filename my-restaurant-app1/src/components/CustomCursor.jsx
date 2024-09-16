@@ -1,5 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+// Keyframes for glow effect on cursor movement
+const neonGlow = keyframes`
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5), 0 0 20px rgba(255, 255, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 0, 1), 0 0 30px rgba(255, 255, 0, 0.8);
+  }
+`;
 
 const CursorContainer = styled.div`
   position: fixed;
@@ -23,18 +33,28 @@ const CursorDot = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: ${props => props.theme.colors.primary};
+  width: 10px;
+  height: 10px;
+  background-color: yellow;
   border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
-  transition: transform 0.15s ease;
+  transform: translate(-50%, -50%);
+  transition: transform 0.05s ease, box-shadow 0.2s ease;
+
+  /* Initial Neon Glow */
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.5), 0 0 20px rgba(255, 255, 0, 0.3);
+
+  /* Glow animation while moving */
+  &.glow {
+    animation: ${neonGlow} 1s infinite ease-in-out;
+  }
 `;
 
 function CustomCursor() {
   const canvasRef = useRef(null);
   const dotRef = useRef(null);
+  let idleTimeout = null;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -80,7 +100,18 @@ function CustomCursor() {
       const { clientX, clientY } = e;
       mouseX = clientX;
       mouseY = clientY;
-      dot.style.transform = `translate(${clientX - 4}px, ${clientY - 4}px)`;
+
+      dot.style.transform = `translate(${clientX}px, ${clientY}px)`;
+
+      // Add neon glow effect while moving
+      dot.classList.add('glow');
+
+      // Clear idle timeout when the mouse moves
+      clearTimeout(idleTimeout);
+      idleTimeout = setTimeout(() => {
+        // Remove glow effect when idle for 500ms
+        dot.classList.remove('glow');
+      }, 500); // Adjust idle time to control glow fade
     }
 
     function handleResize() {

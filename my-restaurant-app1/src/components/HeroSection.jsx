@@ -1,30 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useRef } from 'react';
 import styled from 'styled-components';
-import { motion, useAnimation } from 'framer-motion';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
 import { theme } from '../styles/theme';
-import restaurantHeroImage from '../assets/restaurant-hero.jpg'; // Import the image
 
 const HeroContainer = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #000;
+  background-color: ${theme.colors.white};
   position: relative;
   overflow: hidden;
-`;
-
-const BackgroundImage = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url(${props => props.src});
-  background-size: cover;
-  background-position: center;
-  opacity: ${props => props.loaded ? 0.5 : 0};
-  transition: opacity 1s ease-in-out;
 `;
 
 const HeroContent = styled.div`
@@ -34,22 +21,20 @@ const HeroContent = styled.div`
   z-index: 1;
 `;
 
-const AnimatedText = styled(motion.h1)`
+const HeroTitle = styled.h1`
   font-family: ${theme.fonts.heading};
   font-size: 4rem;
   margin-bottom: 1rem;
-  color: ${theme.colors.white};
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: ${theme.colors.primary};
 `;
 
-const HeroSubtitle = styled(motion.p)`
+const HeroSubtitle = styled.p`
   font-size: 1.5rem;
   margin-bottom: 2rem;
-  color: ${theme.colors.white};
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: ${theme.colors.text};
 `;
 
-const ExploreButton = styled(motion.button)`
+const ExploreButton = styled.button`
   background-color: ${theme.colors.primary};
   color: ${theme.colors.white};
   border: none;
@@ -58,90 +43,49 @@ const ExploreButton = styled(motion.button)`
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-    z-index: -1;
-  }
-
-  &:hover:before {
-    width: 100%;
+  &:hover {
+    background-color: ${theme.colors.secondary};
   }
 `;
 
-const scrambleText = (text, progress) => {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-  return text
-    .split('')
-    .map((char, index) => {
-      if (index < text.length * progress) {
-        return char;
-      }
-      return chars[Math.floor(Math.random() * chars.length)];
-    })
-    .join('');
-};
+const ModelContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+`;
+
+function Model({ url }) {
+  const { scene } = useGLTF(url);
+  const ref = useRef();
+
+  useFrame((state, delta) => {
+    ref.current.rotation.y += delta * 0.2;
+  });
+
+  return <primitive object={scene} ref={ref} scale={[0.5, 0.5, 0.5]} />;
+}
 
 function HeroSection() {
-  const [scrambledText, setScrambledText] = useState('');
-  const controls = useAnimation();
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  useEffect(() => {
-    let progress = 0;
-    const targetText = 'Let Him Cook!';
-    const interval = setInterval(() => {
-      progress += 0.05;
-      setScrambledText(scrambleText(targetText, progress));
-      if (progress >= 1) {
-        clearInterval(interval);
-        controls.start({ scale: [1, 1.1, 1], transition: { duration: 0.5 } });
-      }
-    }, 50);
-
-    // Preload the image
-    const img = new Image();
-    img.src = restaurantHeroImage;
-    img.onload = () => setImageLoaded(true);
-
-    return () => clearInterval(interval);
-  }, [controls]);
-
   return (
     <HeroContainer>
-      <BackgroundImage 
-        src={restaurantHeroImage}
-        loaded={imageLoaded}
-      />
+      <ModelContainer>
+        <Canvas camera={{ position: [0, 0, 5] }}>
+          <ambientLight intensity={0.5} />
+          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+          <pointLight position={[-10, -10, -10]} />
+          <Suspense fallback={null}>
+            <Model url="https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/models/table-set/model.gltf" />
+          </Suspense>
+          <OrbitControls enableZoom={false} enablePan={false} />
+        </Canvas>
+      </ModelContainer>
       <HeroContent>
-        <AnimatedText animate={controls}>{scrambledText}</AnimatedText>
-        <HeroSubtitle
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-        >
-          Embark on a gastronomic journey through the finest restaurants in your area
-        </HeroSubtitle>
-        <ExploreButton
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 2, duration: 0.5 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Explore Now
-        </ExploreButton>
+        <HeroTitle>Reserve Your Table</HeroTitle>
+        <HeroSubtitle>Experience culinary excellence at your fingertips</HeroSubtitle>
+        <ExploreButton>Book Now</ExploreButton>
       </HeroContent>
     </HeroContainer>
   );

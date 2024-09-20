@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { theme } from '../styles/theme';
+import { Link } from 'react-router-dom';
 
 const HeaderContainer = styled(motion.header)`
   position: fixed;
@@ -63,6 +64,22 @@ const NavLink = styled(motion.a)`
   }
 `;
 
+const AuthLinks = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const AuthLink = styled(Link)`
+  color: ${props => props.isScrolled ? theme.colors.text : theme.colors.white};
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: ${theme.colors.primary};
+  }
+`;
+
 const headerVariants = {
   hidden: { y: -80 },
   visible: { y: 0, transition: { type: 'spring', stiffness: 120, damping: 20 } },
@@ -109,6 +126,10 @@ function Header() {
             </NavLink>
           ))}
         </NavLinks>
+        <AuthLinks>
+          <AuthLink to="/login" isScrolled={isScrolled}>Log In</AuthLink>
+          <AuthLink to="/signup" isScrolled={isScrolled}>Sign Up</AuthLink>
+        </AuthLinks>
       </HeaderContent>
     </HeaderContainer>
   );

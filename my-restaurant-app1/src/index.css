@@ -10,23 +10,23 @@
 }
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  cursor: none;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #F5F5F5;
-  color: #333333;
+  font-family: 'Roboto', sans-serif;
+  background-color: ${theme.colors.background};
+  color: ${theme.colors.text};
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a, button {

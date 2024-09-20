@@ -9,12 +9,12 @@ const HeaderContainer = styled(motion.header)`
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
-  background-color: ${props => props.isScrolled ? 'rgba(255, 255, 255, 0.9)' : 'transparent'};
+  height: 90px;
+  background-color: ${props => props.isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent'};
   backdrop-filter: ${props => props.isScrolled ? 'blur(10px)' : 'none'};
   transition: all 0.3s ease;
   z-index: 1000;
-  box-shadow: ${props => props.isScrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none'};
+  box-shadow: ${props => props.isScrolled ? '0 4px 20px rgba(0, 0, 0, 0.1)' : 'none'};
 `;
 
 const HeaderContent = styled.div`
@@ -28,25 +28,30 @@ const HeaderContent = styled.div`
 `;
 
 const Logo = styled(motion.a)`
-  font-family: ${theme.fonts.heading};
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
   color: ${props => props.isScrolled ? theme.colors.primary : theme.colors.white};
   text-decoration: none;
-  text-shadow: ${props => props.isScrolled ? 'none' : '0 2px 4px rgba(0, 0, 0, 0.3)'};
+  text-shadow: ${props => props.isScrolled 
+    ? 'none'
+    : '0 0 8px rgba(0,0,0,0.5)'};
+  letter-spacing: -1px;
 `;
 
 const NavLinks = styled.nav`
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
 `;
 
 const NavLink = styled(motion.a)`
-  color: ${props => props.isScrolled ? theme.colors.text : theme.colors.white};
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: ${theme.colors.white};
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   position: relative;
-  text-shadow: ${props => props.isScrolled ? 'none' : '0 2px 4px rgba(0, 0, 0, 0.3)'};
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 
   &::after {
     content: '';
@@ -66,22 +71,28 @@ const NavLink = styled(motion.a)`
 
 const AuthLinks = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
 `;
 
 const AuthLink = styled(Link)`
-  color: ${props => props.isScrolled ? theme.colors.text : theme.colors.white};
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: ${theme.colors.white};
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 
   &:hover {
-    color: ${theme.colors.primary};
+    background-color: ${theme.colors.primary};
   }
 `;
 
 const headerVariants = {
-  hidden: { y: -80 },
+  hidden: { y: -90 },
   visible: { y: 0, transition: { type: 'spring', stiffness: 120, damping: 20 } },
 };
 
@@ -111,14 +122,13 @@ function Header() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          GourmetGuide
+          EzReserve
         </Logo>
         <NavLinks>
           {['Home', 'Restaurants', 'About', 'Contact'].map((item) => (
             <NavLink
               key={item}
               href="#"
-              isScrolled={isScrolled}
               whileHover={{ y: -3 }}
               whileTap={{ y: 0 }}
             >
@@ -127,8 +137,8 @@ function Header() {
           ))}
         </NavLinks>
         <AuthLinks>
-          <AuthLink to="/login" isScrolled={isScrolled}>Log In</AuthLink>
-          <AuthLink to="/signup" isScrolled={isScrolled}>Sign Up</AuthLink>
+          <AuthLink to="/login">Log In</AuthLink>
+          <AuthLink to="/signup">Sign Up</AuthLink>
         </AuthLinks>
       </HeaderContent>
     </HeaderContainer>

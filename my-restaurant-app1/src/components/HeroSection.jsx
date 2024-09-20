@@ -1,238 +1,234 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { theme } from '../styles/theme';
 
 const HeroContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background-color: ${theme.colors.background};
   color: ${theme.colors.text};
-  overflow: hidden;
-  position: relative;
+  padding: 2rem;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 `;
 
-const ContentSection = styled(motion.div)`
+const Grid = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+  height: 80vh;
+`;
+
+const GridItem = styled(motion.div)`
+  background-color: ${props => props.bgColor || theme.colors.white};
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 1.5rem;
+  position: relative;
+  cursor: pointer;
+`;
+
+const LongItem = styled(GridItem)`
+  grid-column: span 2;
+  grid-row: span 2;
+`;
+
+const ShortItem = styled(GridItem)`
+  grid-row: span 2;
+`;
+
+const ItemImage = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  width: 60%;
+  width: 100%;
   height: 100%;
-  clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
-  background-color: ${theme.colors.primary};
-  display: flex;
-  align-items: center;
-  padding: 0 5% 0 10%;
-  z-index: 2;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+  object-fit: cover;
+  transition: transform 0.3s ease;
+
+  ${GridItem}:hover & {
+    transform: scale(1.05);
   }
 `;
 
-const ImageSection = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 65%;
-  height: 100%;
-  clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
-  overflow: hidden;
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%);
-  }
-`;
-
-const Content = styled.div`
-  max-width: 600px;
+const ItemContent = styled.div`
   position: relative;
   z-index: 2;
+  color: ${theme.colors.white};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 `;
 
-const Title = styled(motion.h1)`
-  font-size: 4.5rem;
+const ItemTitle = styled.h2`
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-family: ${theme.fonts.heading};
+`;
+
+const ItemDescription = styled.p`
+  font-size: 1rem;
+  font-family: ${theme.fonts.main};
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+
+  ${GridItem}:hover & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+`;
+
+const MainTitle = styled(motion.h1)`
+  font-size: 4rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: ${theme.colors.white};
+  text-align: center;
   font-family: ${theme.fonts.heading};
+  color: ${theme.colors.primary};
   letter-spacing: -1px;
-  line-height: 1.2;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: 1.6rem;
-  opacity: 0.9;
+  font-size: 1.5rem;
+  text-align: center;
   margin-bottom: 2rem;
-  color: ${theme.colors.white};
   font-family: ${theme.fonts.main};
-  letter-spacing: 0.5px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  color: ${theme.colors.secondary};
+  max-width: 800px;
 `;
 
 const CTAButton = styled(motion.button)`
   padding: 1rem 2rem;
   font-size: 1.2rem;
   font-weight: bold;
-  background: ${theme.colors.white};
-  color: ${theme.colors.primary};
+  background-color: ${theme.colors.primary};
+  color: ${theme.colors.white};
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transform: perspective(1px) translateZ(0);
+  margin-top: 2rem;
 
   &:hover {
-    transform: perspective(1px) translateZ(10px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: ${theme.colors.secondary};
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 `;
-
-const BackgroundImage = styled(motion.div)`
-  width: 100%;
-  height: 100%;
-  background-image: url(${props => props.src});
-  background-size: cover;
-  background-position: center;
-`;
-
-const NavigationDots = styled.div`
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 1rem;
-  z-index: 3;
-`;
-
-const Dot = styled.button`
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: ${props => props.active ? theme.colors.white : 'rgba(255, 255, 255, 0.5)'};
-  border: none;
-  opacity: ${props => props.active ? 1 : 0.7};
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-`;
-
-const sections = [
-  {
-    title: "Culinary Artistry",
-    subtitle: "Experience the fusion of flavors and visual aesthetics in our carefully crafted dishes.",
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-    cta: "Explore Menu"
-  },
-  {
-    title: "Farm to Table",
-    subtitle: "Savor the freshness of locally sourced ingredients, supporting our community farmers.",
-    image: "https://images.unsplash.com/photo-1470124182917-cc6e71b22ecc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-    cta: "Our Suppliers"
-  },
-  {
-    title: "Ambient Dining",
-    subtitle: "Immerse yourself in our carefully crafted atmosphere, perfect for any occasion.",
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-    cta: "Book a Table"
-  }
-];
 
 const HeroSection = () => {
-  const [currentSection, setCurrentSection] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSection((prev) => (prev + 1) % sections.length);
-    }, 7000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const gridItems = [
+    {
+      title: "No More 'Table for None'",
+      description: `Say goodbye to awkward waits and hello to guaranteed seats. We're basically your restaurant fairy godmother, minus the pumpkin carriage.`,
+      image: "/images/restaurant-reservation.jpg",
+      type: "long",
+    },
+    {
+      title: "Foodie Time Machine",
+      description: `Book your table faster than you can say "I'm hangry!" Time travel not included, but we're working on it.`,
+      image: "https://via.placeholder.com/400x600?text=Fast+Booking",
+      type: "short",
+    },
+    {
+      title: "Date Night Hero",
+      description: `Impress your date with a perfectly timed reservation. We won't tell them it was us, promise!`,
+      image: "/images/romantic-dinner.jpg",
+      type: "normal",
+    },
+    {
+      title: "Group Dining, No Crying",
+      description: `Organizing a group dinner? We'll handle the logistics, you handle the gossip.`,
+      image: "https://via.placeholder.com/400x400?text=Group+Dining",
+      type: "normal",
+    },
+    {
+      title: "Foodie Adventures",
+      description: `Discover new cuisines nearby. It's like Tinder, but for restaurants, and with a much higher success rate!`,
+      image: "/images/world-cuisine.jpg",
+      type: "normal",
+    },
+  ];
 
   return (
     <HeroContainer>
-      <ContentSection
-        initial={{ x: '-100%', rotateY: -20 }}
-        animate={{ x: 0, rotateY: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+      <MainTitle
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       >
-        <Content>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSection}
-              initial={{ opacity: 0, y: 20, rotateX: -10 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              exit={{ opacity: 0, y: -20, rotateX: 10 }}
-              transition={{ duration: 0.5 }}
+        EzReserve
+      </MainTitle>
+      <Subtitle
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        Where 'Table for Two' is always on the menu, and 'Sorry, we're full' is off it!
+      </Subtitle>
+      <Grid
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+      >
+        {gridItems.map((item, index) => {
+          const ItemComponent = item.type === 'long' ? LongItem : item.type === 'short' ? ShortItem : GridItem;
+          return (
+            <ItemComponent
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ scale: 1.02, y: -5 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <Title
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-              >
-                {sections[currentSection].title}
-              </Title>
-              <Subtitle
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-              >
-                {sections[currentSection].subtitle}
-              </Subtitle>
-              <CTAButton
-                whileHover={{ scale: 1.05, rotateZ: 1 }}
-                whileTap={{ scale: 0.95, rotateZ: -1 }}
-              >
-                {sections[currentSection].cta}
-              </CTAButton>
-            </motion.div>
-          </AnimatePresence>
-        </Content>
-      </ContentSection>
-      <ImageSection
-        initial={{ x: '100%', rotateY: 20 }}
-        animate={{ x: 0, rotateY: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+              <ItemImage 
+                src={item.image} 
+                alt={item.title} 
+                onError={(e) => {
+                  e.target.onerror = null; 
+                  e.target.src = `https://via.placeholder.com/800x600?text=${encodeURIComponent(item.title.replace(/\s/g, '+'))}`;
+                }}
+              />
+              <Overlay />
+              <ItemContent>
+                <ItemTitle>{item.title}</ItemTitle>
+                <ItemDescription>{item.description}</ItemDescription>
+              </ItemContent>
+            </ItemComponent>
+          );
+        })}
+      </Grid>
+      <CTAButton
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
       >
-        <AnimatePresence mode="wait">
-          <BackgroundImage
-            key={currentSection}
-            src={sections[currentSection].image}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-          />
-        </AnimatePresence>
-      </ImageSection>
-      <NavigationDots>
-        {sections.map((_, index) => (
-          <Dot
-            key={index}
-            active={index === currentSection}
-            onClick={() => setCurrentSection(index)}
-          />
-        ))}
-      </NavigationDots>
+        Start Reserving Now
+      </CTAButton>
     </HeroContainer>
   );
 };

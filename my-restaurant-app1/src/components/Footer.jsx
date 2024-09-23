@@ -88,7 +88,7 @@ function Footer() {
           <FooterLink href="#">Find Restaurants</FooterLink>
           <FooterLink href="#">Book a Table</FooterLink>
           <FooterLink href="#">Loyalty Program</FooterLink>
-          <FooterLink href="#">Gift Cards</FooterLink>
+          <FooterLink href="#">Gift Card</FooterLink>
         </FooterSection>
         <FooterSection>
           <FooterTitle>Connect with Us</FooterTitle>

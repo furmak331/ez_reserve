@@ -39,7 +39,7 @@ Welcome to the **Ez reserve**! This web app lets you browse through multiple res
 
 ---
 
-### 🧭 How to Run the App Locally
+### 🧭 How to Run the App Locally:
 
 1. Clone the repository:
 

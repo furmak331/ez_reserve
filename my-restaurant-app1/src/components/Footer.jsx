@@ -100,7 +100,7 @@ function Footer() {
           </SocialIcons>
         </FooterSection>
       </FooterContent>
-      <Copyright>&copy; 2023 GourmetGuide. All rights reserved.</Copyright>
+      <Copyright>&copy; 2023 EzReserve. All rights reserved.</Copyright>
     </FooterContainer>
   );
 }

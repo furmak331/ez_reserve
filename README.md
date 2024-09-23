@@ -52,7 +52,7 @@ Welcome to the **Ez reserve**! This web app lets you browse through multiple res
 
 cd restaurant-reservation-app
 
-Install dependencies:
+Install all dependencies:
 
 bash
 

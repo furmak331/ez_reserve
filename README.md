@@ -46,7 +46,7 @@ Welcome to the **Ez reserve**! This web app lets you browse through multiple res
    ```bash
    git clone https://github.com/your-username/restaurant-reservation-app.git
 
-    Navigate to the project directory:
+    Navigate to the projects directory:
 
     bash
 

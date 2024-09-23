@@ -119,7 +119,7 @@ function Header() {
         <Logo
           href="#"
           isScrolled={isScrolled}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.95 }}
         >
           EzReserve

@@ -74,7 +74,7 @@ function Footer() {
           <FooterTitle>GourmetGuide</FooterTitle>
           <FooterLink href="#">About Us</FooterLink>
           <FooterLink href="#">Our Team</FooterLink>
-          <FooterLink href="#">Work with us</FooterLink>
+          <FooterLink href="#">Careers</FooterLink>
           <FooterLink href="#">Contact</FooterLink>
         </FooterSection>
         <FooterSection>
@@ -88,7 +88,7 @@ function Footer() {
           <FooterLink href="#">Find Restaurants</FooterLink>
           <FooterLink href="#">Book a Table</FooterLink>
           <FooterLink href="#">Loyalty Program</FooterLink>
-          <FooterLink href="#">Gift Cards</FooterLink>
+          <FooterLink href="#">Gift Card</FooterLink>
         </FooterSection>
         <FooterSection>
           <FooterTitle>Connect with Us</FooterTitle>
@@ -100,7 +100,7 @@ function Footer() {
           </SocialIcons>
         </FooterSection>
       </FooterContent>
-      <Copyright>&copy; 2023 EzReserve. All rights reserved.</Copyright>
+      <Copyright>&copy; 2023 GourmetGuide. All rights reserved.</Copyright>
     </FooterContainer>
   );
 }

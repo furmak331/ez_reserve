@@ -74,7 +74,7 @@ function Footer() {
           <FooterTitle>GourmetGuide</FooterTitle>
           <FooterLink href="#">About Us</FooterLink>
           <FooterLink href="#">Our Team</FooterLink>
-          <FooterLink href="#">Work with us</FooterLink>
+          <FooterLink href="#">Careers</FooterLink>
           <FooterLink href="#">Contact</FooterLink>
         </FooterSection>
         <FooterSection>
@@ -100,7 +100,7 @@ function Footer() {
           </SocialIcons>
         </FooterSection>
       </FooterContent>
-      <Copyright>&copy; 2023 EzReserve. All rights reserved.</Copyright>
+      <Copyright>&copy; 2023 GourmetGuide. All rights reserved.</Copyright>
     </FooterContainer>
   );
 }

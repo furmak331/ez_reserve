@@ -39,9 +39,9 @@ Welcome to the **Ez reserve**! This web app lets you browse through multiple res
 
 ---
 
-### 🧭 How to Run the App Locally:
+### 🧭 How to Run the App Locally
 
-1. Clone the Repository
+1. Clone the Repo
 
    ```bash
    git clone https://github.com/your-username/restaurant-reservation-app.git

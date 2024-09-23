@@ -1,5 +1,5 @@
 # 🍽️ Ez Reserve
-/GOURMET GUIDE
+
 
 ![Demo GIF](./my-restaurant-app/src/assets/giphy.gif)
 
@@ -41,7 +41,7 @@ Welcome to the **Ez reserve**! This web app lets you browse through multiple res
 
 ### 🧭 How to Run the App Locally
 
-1. Clone the repository:
+1. Clone the Repo
 
    ```bash
    git clone https://github.com/your-username/restaurant-reservation-app.git

@@ -142,7 +142,7 @@ const HeroSection = () => {
     {
       title: "No More 'Table for None'",
       description: `Say goodbye to awkward waits and hello to guaranteed seats. We're basically your restaurant fairy godmother, minus the pumpkin carriage.`,
-      image: "/images/restaurant-reservation.jpg",
+      image: "src/assets/hero-image1.jpg",
       type: "long",
     },
     {
@@ -154,7 +154,7 @@ const HeroSection = () => {
     {
       title: "Date Night Hero",
       description: `Impress your date with a perfectly timed reservation. We won't tell them it was us, promise!`,
-      image: "/images/romantic-dinner.jpg",
+      image: "src/assets/hero-image2.jpg",
       type: "normal",
     },
     {

@@ -79,7 +79,7 @@ Restaurant Details and Booking Page
 
 🤝 Contributions
 
-Feel free to fork this repository, create new features, or report bugs. Contributions are always welcomed!
+Feel free to fork this repository and create new feature . Feel free to report bugs. Contributions are always welcomed!
 📄 License
 
 This project is licensed under the MIT License.

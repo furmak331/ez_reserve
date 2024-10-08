@@ -142,25 +142,25 @@ const HeroSection = () => {
     {
       title: "No More 'Table for None'",
       description: `Say goodbye to awkward waits and hello to guaranteed seats. We're basically your restaurant fairy godmother, minus the pumpkin carriage.`,
-      image: "src/assets/hero-image1.jpg",
+      image: "src/assets/hero-image2.jpg",
       type: "long",
     },
     {
       title: "Foodie Time Machine",
       description: `Book your table faster than you can say "I'm hangry!" Time travel not included, but we're working on it.`,
-      image: "https://via.placeholder.com/400x600?text=Fast+Booking",
+      image: "src/assets/hero-image3.jpg",
       type: "short",
     },
     {
       title: "Date Night Hero",
       description: `Impress your date with a perfectly timed reservation. We won't tell them it was us, promise!`,
-      image: "src/assets/hero-image2.jpg",
+      image: "src/assets/hero-image4.jpg",
       type: "normal",
     },
     {
       title: "Group Dining, No Crying",
       description: `Organizing a group dinner? We'll handle the logistics, you handle the gossip.`,
-      image: "https://via.placeholder.com/400x400?text=Group+Dining",
+      image: "src/assets/hero-image1.jpg",
       type: "normal",
     },
     {

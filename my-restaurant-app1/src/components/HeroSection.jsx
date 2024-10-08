@@ -166,7 +166,7 @@ const HeroSection = () => {
     {
       title: "Foodie Adventures",
       description: `Discover new cuisines nearby. It's like Tinder, but for restaurants, and with a much higher success rate!`,
-      image: "/images/world-cuisine.jpg",
+      image: "src/assets/hero-image4.jpg",
       type: "normal",
     },
   ];

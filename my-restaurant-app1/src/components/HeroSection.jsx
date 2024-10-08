@@ -21,7 +21,7 @@ const Grid = styled(motion.div)`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 1.5rem;
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
   height: 80vh;
 `;
@@ -142,7 +142,7 @@ const HeroSection = () => {
     {
       title: "No More 'Table for None'",
       description: `Say goodbye to awkward waits and hello to guaranteed seats. We're basically your restaurant fairy godmother, minus the pumpkin carriage.`,
-      image: "src/assets/hero-image2.jpg",
+      image: "src/assets/hero-image1.png",
       type: "long",
     },
     {
@@ -160,7 +160,7 @@ const HeroSection = () => {
     {
       title: "Group Dining, No Crying",
       description: `Organizing a group dinner? We'll handle the logistics, you handle the gossip.`,
-      image: "src/assets/hero-image1.jpg",
+      image: "src/assets/hero-image2.png",
       type: "normal",
     },
     {
@@ -178,7 +178,7 @@ const HeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        EzReserve
+        <b>EzReserve</b>
       </MainTitle>
       <Subtitle
         initial={{ opacity: 0, y: -20 }}

@@ -142,7 +142,7 @@ const HeroSection = () => {
     {
       title: "No More 'Table for None'",
       description: `Say goodbye to awkward waits and hello to guaranteed seats. We're basically your restaurant fairy godmother, minus the pumpkin carriage.`,
-      image: "src/assets/hero-image1.png",
+      image: "src/assets/hero-image0.png",
       type: "long",
     },
     {
@@ -154,7 +154,7 @@ const HeroSection = () => {
     {
       title: "Date Night Hero",
       description: `Impress your date with a perfectly timed reservation. We won't tell them it was us, promise!`,
-      image: "src/assets/hero-image4.jpg",
+      image: "src/assets/hero-image1.jpg",
       type: "normal",
     },
     {
@@ -166,7 +166,7 @@ const HeroSection = () => {
     {
       title: "Foodie Adventures",
       description: `Discover new cuisines nearby. It's like Tinder, but for restaurants, and with a much higher success rate!`,
-      image: "src/assets/hero-image4.jpg",
+      image: "src/assets/hero-image8.jpg",
       type: "normal",
     },
   ];

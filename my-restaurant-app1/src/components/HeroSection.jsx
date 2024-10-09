@@ -21,7 +21,7 @@ const Grid = styled(motion.div)`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 1.5rem;
-  max-width: 1400px;
+  max-width: 1350px;
   width: 100%;
   height: 80vh;
 `;

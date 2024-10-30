@@ -16,6 +16,8 @@ import Login from './pages/Login';
 
 import PhoneVerification from './pages/PhoneVerification';
 
+import RestaurantDetails from './pages/RestaurantDetails';
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -26,6 +28,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify-phone" element={<PhoneVerification />} />
+          <Route path="/restaurant/:id" element={<RestaurantDetails />} />
         </Routes>
       </Router>
     </ThemeProvider>

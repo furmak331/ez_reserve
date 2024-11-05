@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { restaurantApi, reservationApi } from '../services/api';
 
 const DetailContainer = styled(motion.div)`
   max-width: 1200px;
@@ -44,8 +45,7 @@ const RestaurantDetails = () => {
   useEffect(() => {
     const fetchRestaurant = async () => {
       try {
-        const response = await fetch(`/api/restaurants/${id}`);
-        const data = await response.json();
+        const { data } = await restaurantApi.getById(id);
         setRestaurant(data);
         setLoading(false);
       } catch (error) {
@@ -59,28 +59,15 @@ const RestaurantDetails = () => {
 
   const handleReservation = async () => {
     try {
-      const response = await fetch(`/api/restaurants/${id}/reservations`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          date: selectedDate,
-          time: selectedTime,
-          partySize,
-        }),
+      const { data } = await reservationApi.create({
+        restaurantId: id,
+        date: selectedDate,
+        time: selectedTime,
+        partySize,
       });
-
-      const data = await response.json();
-      if (response.ok) {
-        // Handle successful reservation
-        console.log('Reservation successful:', data);
-      } else {
-        // Handle error
-        console.error('Reservation failed:', data);
-      }
+      // Handle success
     } catch (error) {
-      console.error('Error making reservation:', error);
+      // Handle error
     }
   };
 

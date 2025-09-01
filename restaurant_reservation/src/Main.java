@@ -1,3 +1,4 @@
+import java.time.*;
 class Client{
     int clidentID;
     int contact;
@@ -16,10 +17,12 @@ class Restaurant{
     int personsPerTable;
     int totalTables;
     int costPerHr;
+    int opening_hr;
+    int closing_hr;
     boolean availability;
-    public boolean checkavailability(int totalTables , int peopleCount){
+    public boolean checkavailability(int totalTables , int peopleCount , int hrs){
         int tablesRequired= peopleCount+personsPerTable-1/personsPerTable;
-        if(tablesRequired<tablesAvailable){
+        if(tablesRequired<tablesAvailable && opening_hr<current){
             return True;
         }
     }

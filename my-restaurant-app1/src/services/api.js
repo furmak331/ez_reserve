@@ -18,23 +18,51 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Add response interceptor for error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token expired or invalid
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const restaurantApi = {
   getAll: (params) => api.get('/restaurants', { params }),
   getById: (id) => api.get(`/restaurants/${id}`),
-  checkAvailability: (id, data) => api.post(`/restaurants/${id}/check-availability`, data),
+  searchNearby: (params) => api.get('/restaurants/search/nearby', { params }),
+  checkAvailability: (id, params) => api.get(`/restaurants/${id}/availability`, { params }),
+  getReviews: (id, params) => api.get(`/restaurants/${id}/reviews`, { params }),
 };
 
 export const reservationApi = {
   create: (data) => api.post('/reservations', data),
-  getMyReservations: () => api.get('/reservations/my-reservations'),
+  getMyReservations: (params) => api.get('/reservations/my-reservations', { params }),
+  getById: (id) => api.get(`/reservations/${id}`),
   update: (id, data) => api.put(`/reservations/${id}`, data),
-  cancel: (id) => api.delete(`/reservations/${id}`),
+  cancel: (id) => api.put(`/reservations/${id}/cancel`),
 };
 
 export const authApi = {
   login: (credentials) => api.post('/auth/login', credentials),
   register: (userData) => api.post('/auth/register', userData),
-  verifyPhone: (data) => api.post('/auth/verify-phone', data),
+  getMe: () => api.get('/auth/me'),
+  updateProfile: (data) => api.put('/auth/profile', data),
+  changePassword: (data) => api.put('/auth/change-password', data),
+  forgotPassword: (data) => api.post('/auth/forgot-password', data),
+  resetPassword: (data) => api.post('/auth/reset-password', data),
+};
+
+export const reviewApi = {
+  create: (data) => api.post('/reviews', data),
+  getByUser: () => api.get('/reviews/my-reviews'),
+  update: (id, data) => api.put(`/reviews/${id}`, data),
+  delete: (id) => api.delete(`/reviews/${id}`),
 };
 
 export default api; 

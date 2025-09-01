@@ -1,7 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { theme } from '../styles/theme';
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+  
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+`;
 
 const Card = styled(motion.div)`
   background-color: ${theme.colors.white};
@@ -68,18 +79,20 @@ const RatingValue = styled.span`
   color: ${theme.colors.text};
 `;
 
-function RestaurantCard({ restaurant }) {
+function RestaurantCard({ restaurant, index = 0 }) {
   const stars = "★".repeat(Math.floor(restaurant.rating)) + "☆".repeat(5 - Math.floor(restaurant.rating));
 
   return (
-    <Card
-      whileHover={{ y: -5 }}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <StyledLink to={`/restaurant/${restaurant.id}`}>
+      <Card
+        whileHover={{ y: -5 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: index * 0.1 }}
+      >
       <ImageContainer>
-        <Image src={restaurant.image} alt={restaurant.name} />
+        <Image src={restaurant.image_url || restaurant.image || '/assets/hero-image0.jpg'} alt={restaurant.name} />
       </ImageContainer>
       <Content>
         <Name>{restaurant.name}</Name>
@@ -90,6 +103,7 @@ function RestaurantCard({ restaurant }) {
         </Rating>
       </Content>
     </Card>
+    </StyledLink>
   );
 }
 

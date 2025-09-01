@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { theme } from '../styles/theme';
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes, FaUser, FaSignInAlt } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUser, FaSignInAlt, FaCalendarAlt, FaSignOutAlt } from 'react-icons/fa';
 
 const HeaderContainer = styled(motion.header)`
   position: fixed;
@@ -174,6 +174,24 @@ const headerVariants = {
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+    if (token && userData) {
+      setUser(JSON.parse(userData));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    setIsMobileMenuOpen(false);
+    window.location.href = '/';
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -204,10 +222,10 @@ function Header() {
                 fontSize="24px"
                 fontFamily={theme.fonts.heading}
               >
-                EzReserve
+                EZ
               </text>
             </svg>
-            EzReserve
+            EZ Reserve
           </Logo>
           <Nav>
             <NavLinks>
@@ -221,12 +239,25 @@ function Header() {
             </NavLinks>
           </Nav>
           <AuthLinks>
-            <AuthLink to="/login">
-              <FaSignInAlt /> Log In
-            </AuthLink>
-            <AuthLink to="/signup">
-              <FaUser /> Sign Up
-            </AuthLink>
+            {user ? (
+              <>
+                <AuthLink to="/my-reservations">
+                  <FaCalendarAlt /> My Reservations
+                </AuthLink>
+                <AuthLink as="button" onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                  <FaSignOutAlt /> Logout ({user.name})
+                </AuthLink>
+              </>
+            ) : (
+              <>
+                <AuthLink to="/login">
+                  <FaSignInAlt /> Log In
+                </AuthLink>
+                <AuthLink to="/signup">
+                  <FaUser /> Sign Up
+                </AuthLink>
+              </>
+            )}
           </AuthLinks>
           <MobileMenuIcon 
             onClick={toggleMobileMenu} 
@@ -255,12 +286,25 @@ function Header() {
               ))}
             </MobileNavLinks>
             <MobileAuthLinks>
-              <AuthLink to="/login" onClick={handleNavClick}>
-                <FaSignInAlt /> Log In
-              </AuthLink>
-              <AuthLink to="/signup" onClick={handleNavClick}>
-                <FaUser /> Sign Up
-              </AuthLink>
+              {user ? (
+                <>
+                  <AuthLink to="/my-reservations" onClick={handleNavClick}>
+                    <FaCalendarAlt /> My Reservations
+                  </AuthLink>
+                  <AuthLink as="button" onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                    <FaSignOutAlt /> Logout ({user.name})
+                  </AuthLink>
+                </>
+              ) : (
+                <>
+                  <AuthLink to="/login" onClick={handleNavClick}>
+                    <FaSignInAlt /> Log In
+                  </AuthLink>
+                  <AuthLink to="/signup" onClick={handleNavClick}>
+                    <FaUser /> Sign Up
+                  </AuthLink>
+                </>
+              )}
             </MobileAuthLinks>
           </MobileMenu>
         )}

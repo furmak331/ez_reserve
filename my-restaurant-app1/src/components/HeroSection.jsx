@@ -178,14 +178,14 @@ const HeroSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <b>EzReserve</b>
+        <b>EZ Reserve</b>
       </MainTitle>
       <Subtitle
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        Where 'Table for Two' is always on the menu, and 'Sorry, we're full' is off it!
+        Reserve your table at Kashmir's finest restaurants with ease!
       </Subtitle>
       <Grid
         initial={{ opacity: 0, scale: 0.9 }}

@@ -7,6 +7,7 @@ import RestaurantCard from '../components/RestaurantCard';
 import Footer from '../components/Footer';
 import { theme } from '../styles/theme';
 import { FaSearch } from 'react-icons/fa';
+import { restaurantApi } from '../services/api';
 
 const HomeContainer = styled.div`
   min-height: 100vh;
@@ -98,7 +99,9 @@ const FilterContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const FilterButton = styled.button`
+const FilterButton = styled.button.withConfig({
+  shouldForwardProp: (prop) => prop !== 'active'
+})`
   background-color: ${props => props.active ? theme.colors.primary : theme.colors.white};
   color: ${props => props.active ? theme.colors.white : theme.colors.primary};
   border: 1px solid ${theme.colors.primary};
@@ -136,60 +139,24 @@ function Home() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchRestaurants();
-  }, [page]);
+  }, []); // Remove page dependency since we're fetching all restaurants at once
 
   const fetchRestaurants = async () => {
-    // Simulate API call
-    const newRestaurants = [
-      {
-        id: 1,
-        name: "Gourmet Bistro",
-        cuisine: "French",
-        rating: 4.5,
-        image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      },
-      {
-        id: 2,
-        name: "Sushi Haven",
-        cuisine: "Japanese",
-        rating: 4.7,
-        image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      },
-      {
-        id: 3,
-        name: "Pasta Paradise",
-        cuisine: "Italian",
-        rating: 4.3,
-        image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      },
-      {
-        id: 4,
-        name: "Spice Route",
-        cuisine: "Indian",
-        rating: 4.6,
-        image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      },
-      {
-        id: 5,
-        name: "Taco Fiesta",
-        cuisine: "Mexican",
-        rating: 4.4,
-        image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-      },
-      {
-        id: 6,
-        name: "Dim Sum Delight",
-        cuisine: "Chinese",
-        rating: 4.2,
-        image: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+    try {
+      setLoading(true);
+      const { data } = await restaurantApi.getAll();
+      if (data.success) {
+        setRestaurants(data.data);
       }
-    ];
-    
-    setRestaurants(prev => [...prev, ...newRestaurants]);
-    setHasMore(newRestaurants.length === 10);
+    } catch (error) {
+      console.error('Error fetching restaurants:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const filteredRestaurants = restaurants.filter(restaurant => 
@@ -253,7 +220,7 @@ function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 * (index % 10) }}
               >
-                <RestaurantCard restaurant={restaurant} />
+                <RestaurantCard restaurant={restaurant} index={index} />
               </motion.div>
             ))}
           </RestaurantGrid>

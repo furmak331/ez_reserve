@@ -66,6 +66,34 @@ bash
 
     Open your browser at http://localhost:3000 and start booking tables! 🎉
 
+---
+
+### 🛠️ Backend Setup (Node.js + PostgreSQL)
+
+1. **Install dependencies**
+   ```bash
+   cd backend
+   npm install
+   ```
+2. **Configure environment variables**
+   - Copy `.env.example` to `.env` and fill in your local database credentials and secrets.
+   - **Never commit your real `.env` file!** (It's gitignored for safety.)
+3. **Set up PostgreSQL**
+   - Make sure PostgreSQL is running locally.
+   - Create a database named `ez_reserve`.
+   - Run the SQL scripts in `backend/migrations/` to create tables and seed data.
+4. **Start the backend server**
+   ```bash
+   npm run dev
+   ```
+   The API will be available at `http://localhost:5000` by default.
+
+---
+
+### ⚠️ Security Note
+- `.env` and any file with secrets are excluded from git by default (see `.gitignore`).
+- **Never share your real `.env` or database passwords.**
+
 📸 Screenshots
 Home Page - Browse Restaurants
 

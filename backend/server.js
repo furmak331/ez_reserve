@@ -1,5 +1,6 @@
+
+require('dotenv').config();
 const express = require('express');
-const dotenv = require('dotenv');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -8,9 +9,6 @@ const restaurantRoutes = require('./routes/restaurantRoutes.js');
 const reservationRoutes = require('./routes/reservationRoutes.js');
 const { errorHandler } = require('./middleware/errorHandler.js');
 const pool = require('./config/db.js');
-
-// Load environment variables
-dotenv.config();
 
 const app = express();
 

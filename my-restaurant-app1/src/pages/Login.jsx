@@ -165,7 +165,7 @@ function Login() {
         >
           <FaGoogle /> Log In with Google
         </GoogleButton>
-        <SignUpLink to="/signup">Don't have an account? Sign up</SignUpLink>
+        <SignUpLink to="/signup">Don't have an account? Sign up here</SignUpLink>
       </LoginForm>
     </LoginContainer>
   );

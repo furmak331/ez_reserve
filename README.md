@@ -1,41 +1,19 @@
 # 🍽️ Ez Reserve
 
+A restaurant reservation system that lets you browse restaurants, check availability, and book tables seamlessly.
 
-![Demo GIF](./my-restaurant-app/src/assets/giphy.gif)
+## 🛠️ Tech Stack
 
-Welcome to the **Ez reserve**! This web app lets you browse through multiple restaurants, check their availability, and book a table—making sure you never have to wait in line for a table again! 🚀
+**Frontend:** React + Vite, Material UI, Framer Motion  
+**Backend:** Node.js + Express  
+**Database:** PostgreSQL  
 
----
+## ✨ Features
 
-### ✨ Features
-
-- **Modern UI/UX** with smooth animations and a responsive layout.
-- **Real-time table availability** to ensure you can reserve a spot.
-- **Dynamic Routing** for a seamless experience.
-- Built using **React**, **Material UI**, and **Framer Motion** for a stunning, interactive user interface.
-- Powered by **Vite** for super-fast development and build times.
-
----
-
-### 🌟 Preview
-
-![Restaurant List Preview](./assets/restaurant-preview.gif)
-
-
-
----
-
-### 🛠️ Tech Stack
-
-![React](https://img.shields.io/badge/React-17.0.2-blue)
-![Vite](https://img.shields.io/badge/Vite-2.0-green)
-![Material UI](https://img.shields.io/badge/Material%20UI-5.0-purple)
-![Framer Motion](https://img.shields.io/badge/FramerMotion-5.0-red)
-
-- **React**: Frontend framework for creating interactive UIs.
-- **Vite**: Lightning-fast development environment.
-- **Material UI**: Modern React UI components for fast and easy design.
-- **Framer Motion**: Stunning animations for delightful user interactions.
+- Browse restaurants with detailed information
+- Real-time table availability checking
+- User authentication and reservation management
+- Responsive design with smooth animations
 
 ---
 
@@ -68,31 +46,63 @@ bash
 
 ---
 
-### 🛠️ Backend Setup (Node.js + PostgreSQL)
+## � Setup Instructions
 
-1. **Install dependencies**
+### Frontend Setup
+
+1. **Navigate to frontend directory**
    ```bash
-   cd backend
+   cd my-restaurant-app1
+   ```
+
+2. **Install dependencies**
+   ```bash
    npm install
    ```
-2. **Configure environment variables**
-   - Copy `.env.example` to `.env` and fill in your local database credentials and secrets.
-   - **Never commit your real `.env` file!** (It's gitignored for safety.)
-3. **Set up PostgreSQL**
-   - Make sure PostgreSQL is running locally.
-   - Create a database named `ez_reserve`.
-   - Run the SQL scripts in `backend/migrations/` to create tables and seed data.
-4. **Start the backend server**
+
+3. **Start the development server**
    ```bash
    npm run dev
    ```
-   The API will be available at `http://localhost:5000` by default.
+   The app will be available at `http://localhost:5173`
 
----
+### Backend Setup
 
-### ⚠️ Security Note
-- `.env` and any file with secrets are excluded from git by default (see `.gitignore`).
-- **Never share your real `.env` or database passwords.**
+1. **Navigate to backend directory**
+   ```bash
+   cd backend
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   - Copy `.env.example` to `.env` and fill in your database credentials
+   - **Never commit your real `.env` file!** (It's gitignored for safety)
+
+4. **Set up PostgreSQL**
+   - Make sure PostgreSQL is running locally
+   - Create a database named `ez_reserve`
+   - Run the migration scripts:
+     ```bash
+     psql -U postgres -d ez_reserve -f migrations/001_create_tables.sql
+     psql -U postgres -d ez_reserve -f migrations/002_seed_restaurants.sql
+     ```
+
+5. **Start the backend server**
+   ```bash
+   npm run dev
+   ```
+   The API will be available at `http://localhost:5000`
+
+## 🔒 Security
+- `.env` files are gitignored to protect sensitive information
+- Never share database passwords or JWT secrets
+
+## 📄 License
+This project is licensed under the MIT License.
 
 📸 Screenshots
 Home Page - Browse Restaurants

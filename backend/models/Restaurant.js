@@ -1,26 +1,18 @@
-const pool = require('../config/db.js');
+const pool = require('../config/pg.js');
 
 class Restaurant {
   static async create(restaurantData) {
     const {
-      name, description, cuisine, phone, email, website,
-      street_address, city, state, zip_code, country = 'USA',
-      latitude, longitude, price_range, images = []
+      name, description, cuisine, address, phone, email, hours, capacity, rating, price_range, image_url, is_active
     } = restaurantData;
-    
     const query = `
       INSERT INTO restaurants (
-        name, description, cuisine, phone, email, website,
-        street_address, city, state, zip_code, country,
-        latitude, longitude, price_range, images
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+        name, description, cuisine, address, phone, email, hours, capacity, rating, price_range, image_url, is_active
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
       RETURNING *
     `;
-    
     const result = await pool.query(query, [
-      name, description, cuisine, phone, email, website,
-      street_address, city, state, zip_code, country,
-      latitude, longitude, price_range, images
+      name, description, cuisine, address, phone, email, hours, capacity, rating, price_range, image_url, is_active
     ]);
     return result.rows[0];
   }

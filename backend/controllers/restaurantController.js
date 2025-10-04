@@ -38,23 +38,11 @@ const getRestaurantById = asyncHandler(async (req, res) => {
     });
   }
 
-  // Get restaurant hours
-  const hours = await Restaurant.getHours(id);
-  
-  // Get restaurant tables
-  const tables = await Restaurant.getTables(id);
-
-  // Get recent reviews
-  const reviews = await Review.findByRestaurantId(id, 10, 0);
-
   res.json({
     success: true,
     data: {
       restaurant: {
-        ...restaurant,
-        hours,
-        tables,
-        reviews
+        ...restaurant
       }
     }
   });

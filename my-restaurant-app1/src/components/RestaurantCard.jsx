@@ -80,7 +80,8 @@ const RatingValue = styled.span`
 `;
 
 function RestaurantCard({ restaurant, index = 0 }) {
-  const stars = "★".repeat(Math.floor(restaurant.rating)) + "☆".repeat(5 - Math.floor(restaurant.rating));
+  const rating = restaurant.rating ? Number(restaurant.rating) : 0;
+  const stars = "★".repeat(Math.floor(rating)) + "☆".repeat(5 - Math.floor(rating));
 
   return (
     <StyledLink to={`/restaurant/${restaurant.id}`}>
@@ -99,7 +100,7 @@ function RestaurantCard({ restaurant, index = 0 }) {
         <Cuisine>{restaurant.cuisine} Cuisine</Cuisine>
         <Rating>
           <Stars>{stars}</Stars>
-          <RatingValue>{restaurant.rating.toFixed(1)}</RatingValue>
+          <RatingValue>{restaurant.rating ? Number(restaurant.rating).toFixed(1) : '0.0'}</RatingValue>
         </Rating>
       </Content>
     </Card>

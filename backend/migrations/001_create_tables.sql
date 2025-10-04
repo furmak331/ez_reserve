@@ -54,3 +54,24 @@ CREATE TABLE IF NOT EXISTS reviews (
   comment TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Restaurant Hours table
+CREATE TABLE IF NOT EXISTS restaurant_hours (
+  id SERIAL PRIMARY KEY,
+  restaurant_id INTEGER REFERENCES restaurants(id),
+  day_of_week INTEGER NOT NULL CHECK (day_of_week >= 0 AND day_of_week <= 6), -- 0=Sunday, 1=Monday, etc.
+  open_time TIME,
+  close_time TIME,
+  is_closed BOOLEAN DEFAULT false,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Restaurant Tables table
+CREATE TABLE IF NOT EXISTS restaurant_tables (
+  id SERIAL PRIMARY KEY,
+  restaurant_id INTEGER REFERENCES restaurants(id),
+  table_number INTEGER NOT NULL,
+  capacity INTEGER NOT NULL,
+  is_available BOOLEAN DEFAULT true,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
